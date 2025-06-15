@@ -24,7 +24,6 @@ public class WeatherSteps extends WeatherTestBase {
                 .spec(requestSpecCurrent)
                 .queryParam("key", Headers.VALID_KEY)
                 .queryParam("q", city)
-                .log().all()
                 .get();
     }
 
