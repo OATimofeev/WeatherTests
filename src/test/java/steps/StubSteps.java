@@ -1,10 +1,8 @@
 package steps;
 
 import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.Тогда;
-import stubs.WeatherStubs;
 
-import static api.Headers.*;
+import static api.Headers.VALID_KEY;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class StubSteps {
@@ -24,6 +22,6 @@ public class StubSteps {
                 .withQueryParam("q", equalTo(q))
                 .withQueryParam("key", equalTo(key))
                 .willReturn(status(statusCode)
-                        .withBodyFile("/error/"+jsonName+".json")));
+                        .withBodyFile("/error/" + jsonName + ".json")));
     }
 }

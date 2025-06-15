@@ -6,9 +6,6 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-import stubs.WeatherStubs;
-
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
