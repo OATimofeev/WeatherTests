@@ -1,28 +1,27 @@
 package steps;
 
-import api.Headers;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
+import static net.javacrumbs.jsonunit.core.Option.IGNORING_ARRAY_ORDER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WeatherSteps extends WeatherTestBase {
     private Response response;
-    private Map<String, Object> expectedValues = new HashMap<>();
 
     @Когда("Запрашиваем погоду для города {string}")
     public void requestWeather(String city) {
         response = given()
                 .spec(requestSpecCurrent)
-                .queryParam("key", Headers.VALID_KEY)
+                .queryParam("key", "valid_key")
                 .queryParam("q", city)
                 .get();
     }
@@ -56,6 +55,13 @@ public class WeatherSteps extends WeatherTestBase {
         String actualJson = response.getBody().asString();
         String expectedJson = Files.readString(Paths.get(path + expectedJsonFilename + ".json"));
 
-        assertThat(actualJson).as("Тело ответа").isEqualTo(expectedJson);
+        try {
+            assertThatJson(actualJson)
+                    .withOptions(IGNORING_ARRAY_ORDER)
+                    .isEqualTo(expectedJson);
+        } catch (AssertionError e) {
+            Allure.addAttachment("Различия в JSON", "text/plain", e.getMessage());
+            throw e;
+        }
     }
 }

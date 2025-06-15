@@ -2,7 +2,6 @@ package steps;
 
 import io.cucumber.java.ru.Дано;
 
-import static api.Headers.VALID_KEY;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class StubSteps {
@@ -12,7 +11,7 @@ public class StubSteps {
     public void prepareStubForCity(String city) {
         stubFor(get(urlPathEqualTo(PATH))
                 .withQueryParam("q", equalTo(city))
-                .withQueryParam("key", equalTo(VALID_KEY))
+                .withQueryParam("key", equalTo("valid_key"))
                 .willReturn(ok().withBodyFile("/" + city + ".json")));
     }
 

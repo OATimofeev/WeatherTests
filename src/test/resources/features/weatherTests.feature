@@ -8,11 +8,11 @@
     Тогда Проверяем, что JSON ответа равен ожидаемому в "<ожидаемый>"
 
     Примеры:
-      | город  | ожидаемый |
-      | berlin | berlin    |
-      | milan  | milan-bad |
-      | moscow | moscow    |
-      | paris  | paris     |
+      | город     | ожидаемый |
+      | berlin    | berlin    |
+      | milan-bad | milan     |
+      | moscow    | moscow    |
+      | paris     | paris     |
 
   Структура сценария: Негативные проверки для различных статус-кодов
     Дано Создана заглушка с ожиданием ошибки q == "<q>", key == "<key>", statusCode == <код>, body == "<ожидаемый>"
