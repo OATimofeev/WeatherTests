@@ -21,8 +21,6 @@ public class TestRunner {
     public static void startServer() {
         wireMockServer = new WireMockServer();
         wireMockServer.start();
-
-//        WeatherStubs.setupNegativeStubs();
     }
 
     @AfterClass
